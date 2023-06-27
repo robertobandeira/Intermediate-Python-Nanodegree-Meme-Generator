@@ -7,7 +7,7 @@ class TXTIngestor():
     
     @classmethod
     def can_ingest(cls, path: str) -> bool:
-        ext = path.split('.')[-1]
+        ext = path.split('.')[-1].lower()
         return ext in cls.allowed_extensions
 
     @classmethod
@@ -18,7 +18,7 @@ class TXTIngestor():
         quotes = []
         with open(path, 'r', encoding='UTF-8') as infile:
             for line in infile:
-                body, author = line.split(' - ')
+                body, author = line.strip('\n').split(' - ')
                 quote = QuoteModel(body, author)
                 quotes.append(quote)
         

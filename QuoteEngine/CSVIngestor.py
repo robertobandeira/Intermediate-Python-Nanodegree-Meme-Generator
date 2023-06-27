@@ -8,7 +8,7 @@ class CSVIngestor():
     
     @classmethod
     def can_ingest(cls, path: str) -> bool:
-        ext = path.split('.')[-1]
+        ext = path.split('.')[-1].lower()
         return ext in cls.allowed_extensions
 
     @classmethod
