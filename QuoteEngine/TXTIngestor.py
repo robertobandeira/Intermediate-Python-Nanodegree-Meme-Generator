@@ -16,9 +16,8 @@ class TXTIngestor():
             raise Exception('cannot ingest exception')
         
         quotes = []
-        with open(path, 'r') as infile:
-            for line in infile.read():
-                print(line)
+        with open(path, 'r', encoding='UTF-8') as infile:
+            for line in infile:
                 body, author = line.split(' - ')
                 quote = QuoteModel(body, author)
                 quotes.append(quote)
