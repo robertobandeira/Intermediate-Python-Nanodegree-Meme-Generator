@@ -56,7 +56,11 @@ def meme_post():
     """Create a user defined meme."""
     temp_img = f'./tmp/{random.randint(0,1000000)}.jpeg'
     image_url = request.form['image_url']
-    res = requests.get(image_url, stream=True)
+    try:
+        res = requests.get(image_url, stream=True)
+    except Exception:
+        print("Image couldn't be fetched. Please try a different url")
+        return render_template('meme_error.html')
     if res.status_code == 200:
         with open(temp_img, 'wb') as f:
             shutil.copyfileobj(res.raw, f)

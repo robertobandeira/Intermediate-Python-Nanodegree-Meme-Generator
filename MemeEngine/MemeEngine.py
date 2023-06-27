@@ -1,6 +1,8 @@
 """Module that handles image manipulation and quote to image."""
 from PIL import Image, ImageDraw, ImageFont
 import random
+import textwrap
+from string import ascii_letters
 
 
 class MemeEngine():
@@ -22,9 +24,21 @@ class MemeEngine():
         # print(text)
         font = ImageFont.truetype('./fonts/LilitaOne-Regular.ttf', size=20)
         draw = ImageDraw.Draw(im_resized)
-        random_x = random.randint(10, width - len(text))
-        random_y = random.randint(30, height - 30)
-        draw.text((random_x, random_y), f'{text} - {author}', fill='white', font=font)
+
+        text_size_x = sum(font.getsize(character)[0] for character in ascii_letters)
+        character_size_x = text_size_x / len(ascii_letters)
+        max_width = int(im_resized.size[0] / (2 * character_size_x))
+        random_x = random.randint(10, width - int(max_width * character_size_x))
+
+        text_size_y = sum(font.getsize(character)[1] for character in ascii_letters)
+        character_size_y = text_size_y / len(ascii_letters)
+        max_height = int(im_resized.size[1] / (2 * character_size_y))
+        text_wrapped = textwrap.fill(text=text, width=max_width)
+        nlines = len(text_wrapped.splitlines()) + 1
+        random_y = random.randint(30, height/2 - int(max_height * nlines))
+
+        draw.text((random_x, random_y), f'{text_wrapped}\n{author}', 
+                  fill='white', font=font)
 
         temp_file = f'{self.tmp_path}/{random.randint(0,1000000)}.jpeg'
         im_resized.save(temp_file, "JPEG")
