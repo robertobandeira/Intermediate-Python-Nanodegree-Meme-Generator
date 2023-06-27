@@ -25,19 +25,21 @@ class MemeEngine():
         font = ImageFont.truetype('./fonts/LilitaOne-Regular.ttf', size=20)
         draw = ImageDraw.Draw(im_resized)
 
-        text_size_x = sum(font.getsize(character)[0] for character in ascii_letters)
-        character_size_x = text_size_x / len(ascii_letters)
-        max_width = int(im_resized.size[0] / (2 * character_size_x))
-        random_x = random.randint(10, width - int(max_width * character_size_x))
+        text_size_x = sum(font.getsize(character)[0] 
+                          for character in ascii_letters)
+        character_sizex = text_size_x / len(ascii_letters)
+        max_width = int(im_resized.size[0] / (2 * character_sizex))
+        random_x = random.randint(10, width - int(max_width * character_sizex))
 
-        text_size_y = sum(font.getsize(character)[1] for character in ascii_letters)
+        text_size_y = sum(font.getsize(character)[1] 
+                          for character in ascii_letters)
         character_size_y = text_size_y / len(ascii_letters)
         max_height = int(im_resized.size[1] / (2 * character_size_y))
         text_wrapped = textwrap.fill(text=text, width=max_width)
         nlines = len(text_wrapped.splitlines()) + 1
         random_y = random.randint(30, height/2 - int(max_height * nlines))
 
-        draw.text((random_x, random_y), f'{text_wrapped}\n{author}', 
+        draw.text((random_x, random_y), f'{text_wrapped}\n{author}',
                   fill='white', font=font)
 
         temp_file = f'{self.tmp_path}/{random.randint(0,1000000)}.jpeg'
