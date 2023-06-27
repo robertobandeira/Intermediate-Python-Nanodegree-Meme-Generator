@@ -1,3 +1,4 @@
+"""Strategy object that realizes PDF case."""
 from .IngestorInterface import IngestorInterface
 from .QuoteModel import QuoteModel
 from typing import List
@@ -5,16 +6,15 @@ import subprocess
 import random
 import os
 
-class PDFIngestor():
+
+class PDFIngestor(IngestorInterface):
+    """Start an Ingestor to realize the interface for PDF."""
+
     allowed_extensions = ['pdf']
-    
-    @classmethod
-    def can_ingest(cls, path: str) -> bool:
-        ext = path.split('.')[-1].lower()
-        return ext in cls.allowed_extensions
 
     @classmethod
     def parse(cls, path: str) -> List[QuoteModel]:
+        """Parse PDF file to list of quotes."""
         if not cls.can_ingest(path):
             raise Exception('cannot ingest exception')
 
@@ -30,9 +30,9 @@ class PDFIngestor():
                         body, author = line.split(' - ')
                         quote = QuoteModel(body, author)
                         quotes.append(quote)
-        except:
+        except Exception:
             print("Error in handling converted txt")
         finally:
             os.remove(temp_file)
-        
+
         return quotes
