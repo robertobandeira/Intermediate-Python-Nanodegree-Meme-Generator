@@ -18,7 +18,10 @@ class MemeEngine():
         # print(text)
         # font = ImageFont.truetype('./fonts/LilitaOne-Regular.ttf', size=20)
         draw = ImageDraw.Draw(im_resized)
-        draw.text((10, 30), f'{text} - {author}', fill='white') 
+        random_x = random.randint(10, width - len(text))
+        random_y = random.randint(30, height - 30)
+        draw.text((random_x, random_y), f'{text} - {author}', fill='white') 
 
         temp_file =  f'{self.tmp_path}/{random.randint(0,1000000)}.jpeg'
         im_resized.save(temp_file, "JPEG")
+        return temp_file
