@@ -9,12 +9,13 @@ The application I built:
 * Loads quotes from a variety of filetypes (PDF, Word Documents, CSVs, Text files).
 * Loads, manipulates, and saves images.
 * Accepts dynamic user input through a command-line tool and a web service. This emulates the kind of work encountered as a full stack developer.
+
 This project gave mr a hands-on opportunity to practice what I learned in this course, such as:
 * Object-oriented thinking in Python, including abstract classes, class methods, and static methods.
 * DRY (don’t repeat yourself) principles of class and method design.
 * Working with modules and packages in Python.
 
-## Using this code
+# Using this code
 There are two main ways to use this application:
 * Generating a meme - you can call meme.py with 3 optional arguments image_url, body and quote. Example:
 `python meme.py --body 'Testing quote out' --author 'Roberto'`
