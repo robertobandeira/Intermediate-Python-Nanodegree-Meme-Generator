@@ -18,19 +18,21 @@ class PDFIngestor():
         if not cls.can_ingest(path):
             raise Exception('cannot ingest exception')
 
-        temp_file = f'./tmp/{random.randint(0,10000)}.txt'
-        call = subprocess.call(['xpdf', path, temp_file])
-        print(path)
-        print(temp_file)
-        quotes = []
-        with open(temp_file, 'r', encoding='UTF-8') as infile:
-            for line in infile:
-                line = line.strip('\n\r').strip()
-                if len(line) > 0:
-                    body, author = line.split(' - ')
-                    quote = QuoteModel(body, author)
-                    quotes.append(quote)
+        temp_file = f'{random.randint(0,1000000)}.txt'
+        call = subprocess.run(['pdftotext', '-table', path, temp_file])
 
-        os.remove(temp_file)
+        quotes = []
+        try:
+            with open(temp_file, 'r', encoding='UTF-8') as infile:
+                for line in infile.readlines():
+                    line = line.strip('\n\r').strip()
+                    if len(line) > 0:
+                        body, author = line.split(' - ')
+                        quote = QuoteModel(body, author)
+                        quotes.append(quote)
+        except:
+            print("Error in handling converted txt")
+        finally:
+            os.remove(temp_file)
         
         return quotes
