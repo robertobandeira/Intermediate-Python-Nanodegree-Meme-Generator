@@ -31,7 +31,7 @@ class PDFIngestor(IngestorInterface):
                         quote = QuoteModel(body, author)
                         quotes.append(quote)
         except Exception:
-            print("Error in handling converted txt")
+            print("Error in handling converted txt from pdf.")
         finally:
             os.remove(temp_file)
 
