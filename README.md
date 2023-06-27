@@ -21,3 +21,14 @@ There are two main ways to use this application:
 `python meme.py --body 'Testing quote out' --author 'Roberto'`
 * Run this application behind a server that constitutes the backend for a Udacity-supplied frontend. To do so, run:
 `python app.py`
+
+# Modules
+## Quote Engine
+This powerful module implements the QuoteModel class and abstracts the different methods for consuming data from different extensions (pdf, csv, txt, docx):
+* The QuoteModel encapsulates the body and author of a quote into an instance object
+* The Ingestor abstracts away the Object-strategy design used in the remaining classes of the module
+## Meme Engine
+This module contains the class that handles the image manipulation and quote insertion to generate the memes.
+
+# Final Result
+When running this application as a server, you'll have available a website that can generate random memes (with pictures from a database and quotes from different file types), or generate your own meme by inputting a image url, quote and author. It's fun and easy to use!
