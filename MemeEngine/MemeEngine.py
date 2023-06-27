@@ -20,11 +20,11 @@ class MemeEngine():
             height = int(ratio*float(im.size[1]))
             im_resized = im.resize((width, height), Image.NEAREST)
         # print(text)
-        # font = ImageFont.truetype('./fonts/LilitaOne-Regular.ttf', size=20)
+        font = ImageFont.truetype('./fonts/LilitaOne-Regular.ttf', size=20)
         draw = ImageDraw.Draw(im_resized)
         random_x = random.randint(10, width - len(text))
         random_y = random.randint(30, height - 30)
-        draw.text((random_x, random_y), f'{text} - {author}', fill='white')
+        draw.text((random_x, random_y), f'{text} - {author}', fill='white', font=font)
 
         temp_file = f'{self.tmp_path}/{random.randint(0,1000000)}.jpeg'
         im_resized.save(temp_file, "JPEG")
