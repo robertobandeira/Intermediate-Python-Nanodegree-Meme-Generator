@@ -37,7 +37,7 @@ class MemeEngine():
         max_height = int(im_resized.size[1] / (2 * character_size_y))
         text_wrapped = textwrap.fill(text=text, width=max_width)
         nlines = len(text_wrapped.splitlines()) + 1
-        random_y = random.randint(30, height/2 - int(max_height * nlines))
+        random_y = random.randint(30, int(height/2 - max_height * nlines))
 
         draw.text((random_x, random_y), f'{text_wrapped}\n{author}',
                   fill='white', font=font)

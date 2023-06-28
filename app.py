@@ -58,16 +58,16 @@ def meme_post():
     image_url = request.form['image_url']
     try:
         res = requests.get(image_url, stream=True)
+        if res.status_code == 200:
+            with open(temp_img, 'wb') as f:
+                shutil.copyfileobj(res.raw, f)
+        body = request.form['body']
+        author = request.form['author']
+        path = meme.make_meme(temp_img, body, author)
+        os.remove(temp_img)
     except Exception:
         print("Image couldn't be fetched. Please try a different url")
         return render_template('meme_error.html')
-    if res.status_code == 200:
-        with open(temp_img, 'wb') as f:
-            shutil.copyfileobj(res.raw, f)
-    body = request.form['body']
-    author = request.form['author']
-    path = meme.make_meme(temp_img, body, author)
-    os.remove(temp_img)
     return render_template('meme.html', path=path)
 
 
